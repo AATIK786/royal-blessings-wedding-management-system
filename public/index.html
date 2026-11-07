@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal BLESSINGS Wedding Venues & Online Wedding Management System</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-text h1,
+        .hero-title,
+        .receipt-header h3 {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP NAVIGATION -->
+    <header class="navbar">
+        <a href="javascript:void(0)" class="nav-brand" onclick="switchSection('halls-section')">
+            <span class="brand-icon">💍</span>
+            <div class="brand-text">
+                <h1>ROYAL BLESSINGS VENUES</h1>
+                <span>ONLINE MANAGEMENT SYSTEM • MYSQL WORKBENCH</span>
+            </div>
+        </a>
+
+        <ul class="nav-links">
+            <li>
+                <button class="nav-btn active" data-target="halls-section">
+                    🏛️ Marriage Halls
+                </button>
+            </li>
+            <li>
+                <button class="nav-btn" data-target="book-section">
+                    📅 Book a Venue
+                </button>
+            </li>
+            <li>
+                <button class="nav-btn" data-target="bookings-section">
+                    🧾 My Bookings & Receipts
+                </button>
+            </li>
+            <li>
+                <button class="nav-btn admin-badge-btn" data-target="admin-section">
+                    ⚙️ Admin Portal
+                </button>
+            </li>
+        </ul>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero-banner">
+        <div class="hero-content">
+            <div class="hero-pill">✨ Find & Book Your Dream Wedding Venue ✨</div>
+            <h1 class="hero-title">Experience Unforgettable Moments in <span>Majestic Marriage Halls</span></h1>
+            <p class="hero-subtitle">
+                Explore luxury banquet halls, royal palace lawns, and beachside wedding pavilions. Check real-time date
+                availability, verify guest capacities, and reserve instantly with transparent payment details.
+            </p>
+
+            <!-- Quick Search Bar -->
+            <div class="search-bar-card">
+                <div class="search-field">
+                    <label for="hero-search-text">Search Venue or City</label>
+                    <input type="text" id="hero-search-text" placeholder="e.g. Bangalore, Royal Palace, Grand Lawn">
+                </div>
+                <div class="search-field">
+                    <label for="hero-search-capacity">Guest Capacity</label>
+                    <select id="hero-search-capacity">
+                        <option value="">Any Capacity</option>
+                        <option value="500">500+ Guests</option>
+                        <option value="800">800+ Guests</option>
+                        <option value="1200">1,200+ Guests</option>
+                        <option value="1500">1,500+ Guests</option>
+                        <option value="2000">2,000+ Guests</option>
+                    </select>
+                </div>
+                <div class="search-field">
+                    <label for="hero-search-date">Event Date</label>
+                    <input type="date" id="hero-search-date">
+                </div>
+                <div>
+                    <button class="btn-search" id="hero-search-btn">
+                        🔍 Find Halls
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN APP CONTAINER -->
+    <main class="main-container">
+
+        <!-- ========================================================
+             SECTION 1: BROWSE MARRIAGE HALLS & AVAILABILITY
+             ======================================================== -->
+        <section id="halls-section" class="view-section active">
+            <div class="section-header">
+                <div class="section-title">
+                    <h2>🏛️ Explore Grand Marriage Halls</h2>
+                    <p>Verified venues with capacities, high-resolution photos, luxury amenities, and pricing.</p>
+                </div>
+                <button class="btn-book" onclick="switchSection('book-section')">
+                    + Quick Reserve Hall
+                </button>
+            </div>
+
+            <!-- Hall Filters -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="filter-search">Search:</label>
+                    <input type="text" id="filter-search" placeholder="Search by name, amenity...">
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-location">Location:</label>
+                    <select id="filter-location">
+                        <option value="">All Locations</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-capacity">Min Capacity:</label>
+                    <select id="filter-capacity">
+                        <option value="">Any</option>
+                        <option value="500">500+ Guests</option>
+                        <option value="1000">1,000+ Guests</option>
+                        <option value="1500">1,500+ Guests</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-status">Status:</label>
+                    <select id="filter-status">
+                        <option value="">All</option>
+                        <option value="Available">Available</option>
+                        <option value="Maintenance">Under Maintenance</option>
+                    </select>
+                </div>
+
+                <button class="filter-reset-btn" id="filter-reset-btn">Reset Filters</button>
+            </div>
+
+            <!-- Halls Grid (With Images) -->
+            <div id="halls-container" class="halls-grid">
+                <!-- Dynamically populated via app.js -->
+            </div>
+        </section>
+
+        <!-- ========================================================
+             SECTION 2: BOOK A HALL (RESERVATION FORM)
+             ======================================================== -->
+        <section id="book-section" class="view-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <h2>📅 Book Your Wedding Venue</h2>
+                    <p>Reserve marriage halls with automated conflict detection and instant payment processing.</p>
+                </div>
+            </div>
+
+            <div class="booking-page-layout">
+                <!-- Left Column: Form -->
+                <div class="booking-form-card">
+                    <form id="wedding-booking-form">
+
+                        <!-- Step 1: Venue Selection -->
+                        <div class="form-step-title">
+                            <span class="form-step-badge">1</span>
+                            Select Wedding Venue
+                        </div>
+                        <div class="form-group">
+                            <label for="booking_hall_id">Choose Marriage Hall *</label>
+                            <select id="booking_hall_id" required>
+                                <option value="">-- Choose a Marriage Hall --</option>
+                            </select>
+                        </div>
+
+                        <!-- Step 2: Event Schedule -->
+                        <div class="form-step-title" style="margin-top: 1.5rem;">
+                            <span class="form-step-badge">2</span>
+                            Event Details & Timings
+                        </div>
+                        <div class="form-group">
+                            <label for="event_name">Wedding Event / Function Name *</label>
+                            <input type="text" id="event_name" placeholder="e.g. Royal Vivah & Grand Reception"
+                                required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="event_date">Event Date *</label>
+                                <input type="date" id="event_date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="start_time">Start Time *</label>
+                                <input type="time" id="start_time" value="09:00" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="end_time">End Time *</label>
+                            <input type="time" id="end_time" value="23:00" required>
+                        </div>
+
+                        <!-- Real-time Availability Alert Box -->
+                        <div id="form-avail-feedback" class="avail-check-box"></div>
+
+                        <!-- Step 3: Customer Information -->
+                        <div class="form-step-title" style="margin-top: 1.5rem;">
+                            <span class="form-step-badge">3</span>
+                            Customer Contact Details
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cust_name">Full Name *</label>
+                                <input type="text" id="cust_name" placeholder="e.g. Shaik Mansoor" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cust_email">Email Address *</label>
+                                <input type="email" id="cust_email" placeholder="e.g. mansoor@example.com" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cust_phone">Mobile / Phone Number *</label>
+                                <input type="tel" id="cust_phone" placeholder="e.g. 9845123789" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cust_address">Postal Address *</label>
+                                <input type="text" id="cust_address" placeholder="e.g. Jubilee Hills, Hyderabad"
+                                    required>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Payment Confirmation -->
+                        <div class="form-step-title" style="margin-top: 1.5rem;">
+                            <span class="form-step-badge">4</span>
+                            Payment Settlement
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="payment_method">Payment Mode *</label>
+                                <select id="payment_method" required>
+                                    <option value="Online / Card">Online Credit/Debit Card</option>
+                                    <option value="UPI / GPay">UPI (Google Pay, PhonePe, Paytm)</option>
+                                    <option value="Net Banking">Net Banking</option>
+                                    <option value="Cash / Cheque">Cash / Bank Cheque</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="payment_status">Payment Status *</label>
+                                <select id="payment_status" required>
+                                    <option value="Paid">Mark as Paid (Full Settlement)</option>
+                                    <option value="Partially Paid">Partially Paid (Advance Deposit)</option>
+                                    <option value="Pending">Pay Later (Pending)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="submit-booking-btn" class="btn-confirm-booking">
+                            💍 Confirm Wedding Reservation
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right Column: Sidebar Preview -->
+                <div class="booking-summary-sidebar">
+                    <h3
+                        style="font-size: 1.25rem; color: #0f172a; margin-bottom: 1rem; border-bottom: 2px solid var(--gold); padding-bottom: 8px;">
+                        Booking Summary
+                    </h3>
+                    <div id="booking-summary-preview">
+                        <!-- Populated dynamically when hall is chosen -->
+                        <p style="color: #64748b; font-style: italic;">Select a hall from the dropdown above to view
+                            pricing and specifications.</p>
+                    </div>
+
+                    <div class="cost-breakdown">
+                        <div class="cost-row">
+                            <span>Base Hall Fee</span>
+                            <span id="summary-subtotal">₹0</span>
+                        </div>
+                        <div class="cost-row">
+                            <span>GST & Taxes (18%)</span>
+                            <span id="summary-gst">₹0</span>
+                        </div>
+                        <div class="cost-row total">
+                            <span>Total Payable</span>
+                            <span id="summary-total" style="color: var(--gold-dark);">₹0</span>
+                        </div>
+                    </div>
+
+                    <div
+                        style="font-size: 0.8rem; color: #64748b; background: #f8fafc; padding: 10px; border-radius: 8px;">
+                        🔒 <b>Safe & Instant:</b> Automatically checks MySQL database for conflicting reservations
+                        before committing the booking.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+             SECTION 3: MY BOOKINGS & PAYMENT RECEIPTS
+             ======================================================== -->
+        <section id="bookings-section" class="view-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <h2>🧾 My Bookings & Payment Details</h2>
+                    <p>Lookup your registered reservations, review hall allocation, and download official invoices.</p>
+                </div>
+            </div>
+
+            <div class="customer-search-card">
+                <label for="customer-search-input" style="font-weight: 700; color: #334155;">Lookup by Customer Email or
+                    Phone Number:</label>
+                <div class="search-input-group">
+                    <input type="text" id="customer-search-input"
+                        placeholder="e.g. rahul.sharma@example.com or 9876543210">
+                    <button class="btn-search" id="customer-search-btn" style="margin-top: 0;">Search Records</button>
+                </div>
+                <div style="margin-top: 8px; font-size: 0.8rem; color: #64748b;">
+                    Try demo profiles: <code>rahul.sharma@example.com</code> or <code>mansoor.wedding@example.com</code>
+                </div>
+            </div>
+
+            <div id="customer-bookings-results">
+                <!-- Search results will appear here -->
+                <div
+                    style="background: #ffffff; padding: 2.5rem; border-radius: 12px; border: 1px solid #e2e8f0; text-align: center; color: #64748b;">
+                    Enter your email or mobile number above to view your confirmed wedding reservations and official
+                    payment receipts.
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+             SECTION 4: ADMIN DASHBOARD & MANAGEMENT PORTAL
+             ======================================================== -->
+        <section id="admin-section" class="view-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <h2>⚙️ Wedding Administrator Portal</h2>
+                    <p>Manage marriage hall inventory, reservations, customer details, and payment transactions.</p>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn-book" onclick="openAddHallModal()">
+                        + Add New Marriage Hall
+                    </button>
+                </div>
+            </div>
+
+            <!-- KPI Summary Cards -->
+            <div class="stats-cards-grid">
+                <div class="stat-card">
+                    <div class="stat-icon gold">🏛️</div>
+                    <div>
+                        <div class="stat-value" id="stat-total-halls">0</div>
+                        <div class="stat-label">Total Marriage Halls</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">✅</div>
+                    <div>
+                        <div class="stat-value" id="stat-available-halls">0</div>
+                        <div class="stat-label">Available for Booking</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon blue">📅</div>
+                    <div>
+                        <div class="stat-value" id="stat-total-bookings">0</div>
+                        <div class="stat-label">Total Reservations</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple">💰</div>
+                    <div>
+                        <div class="stat-value" id="stat-total-revenue">₹0</div>
+                        <div class="stat-label">Revenue Collected</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Tabs Navigation -->
+            <div class="admin-nav-tabs">
+                <button class="admin-tab-btn active" data-pane="admin-halls-pane">🏛️ Manage Halls</button>
+                <button class="admin-tab-btn" data-pane="admin-bookings-pane">📅 Reservations & Bookings</button>
+                <button class="admin-tab-btn" data-pane="admin-payments-pane">💳 Payments Ledger</button>
+                <button class="admin-tab-btn" data-pane="admin-customers-pane">👥 Registered Customers</button>
+            </div>
+
+            <!-- Admin Pane 1: Halls Management -->
+            <div id="admin-halls-pane" class="admin-tab-pane active">
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Hall Name & ID</th>
+                                <th>Location</th>
+                                <th>Capacity</th>
+                                <th>Price / Day</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-halls-tbody">
+                            <!-- Populated dynamically via admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Admin Pane 2: Bookings Management -->
+            <div id="admin-bookings-pane" class="admin-tab-pane">
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Customer</th>
+                                <th>Hall</th>
+                                <th>Event & Schedule</th>
+                                <th>Total (₹)</th>
+                                <th>Reservation Status</th>
+                                <th>Payment</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-bookings-tbody">
+                            <!-- Populated dynamically via admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Admin Pane 3: Payments Management -->
+            <div id="admin-payments-pane" class="admin-tab-pane">
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Payment ID</th>
+                                <th>Customer & Hall</th>
+                                <th>Amount</th>
+                                <th>Payment Date</th>
+                                <th>Mode</th>
+                                <th>Status</th>
+                                <th>Transaction Ref</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-payments-tbody">
+                            <!-- Populated dynamically via admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Admin Pane 4: Customers Directory -->
+            <div id="admin-customers-pane" class="admin-tab-pane">
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Full Name</th>
+                                <th>Email Address</th>
+                                <th>Phone Number</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-customers-tbody">
+                            <!-- Populated dynamically via admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ========================================================
+         MODAL 1: CHECK AVAILABILITY
+         ======================================================== -->
+    <div id="availability-modal" class="modal-overlay">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 class="modal-title">📅 Check Hall Availability</h3>
+                <button class="modal-close-btn" onclick="closeModal('availability-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex; gap: 16px; margin-bottom: 1.5rem; align-items: center;">
+                    <img id="modal-avail-hall-img" src="" alt="Hall"
+                        style="width: 110px; height: 80px; object-fit: cover; border-radius: 8px;">
+                    <div>
+                        <h4 id="modal-avail-hall-name" style="font-size: 1.2rem; color: #0f172a;"></h4>
+                        <p id="modal-avail-hall-location" style="font-size: 0.85rem; color: #64748b;"></p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="modal-avail-date">Select Desired Wedding Date:</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="date" id="modal-avail-date" style="flex: 1;">
+                        <button class="btn-check-avail" id="modal-check-now-btn">Check Date</button>
+                    </div>
+                </div>
+
+                <div id="modal-avail-result"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-check-avail" onclick="closeModal('availability-modal')">Close</button>
+                <button class="btn-book" id="modal-proceed-book-btn" style="display: none;">Proceed to Book</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         MODAL 2: OFFICIAL PAYMENT RECEIPT / INVOICE
+         ======================================================== -->
+    <div id="receipt-modal" class="modal-overlay">
+        <div class="modal-dialog large">
+            <div class="modal-header">
+                <h3 class="modal-title">🧾 Official Payment Receipt & Invoice</h3>
+                <button class="modal-close-btn" onclick="closeModal('receipt-modal')">&times;</button>
+            </div>
+            <div class="modal-body" id="receipt-content-area">
+                <!-- Receipt content populated via app.js -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-check-avail" onclick="printReceipt()">🖨️ Print / Save PDF</button>
+                <button class="btn-book" onclick="closeModal('receipt-modal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         MODAL 3: ADMIN ADD / EDIT HALL
+         ======================================================== -->
+    <div id="hall-modal" class="modal-overlay">
+        <div class="modal-dialog large">
+            <div class="modal-header">
+                <h3 class="modal-title" id="hall-modal-title">Add New Marriage Hall</h3>
+                <button class="modal-close-btn" onclick="closeModal('hall-modal')">&times;</button>
+            </div>
+            <form id="admin-hall-form">
+                <div class="modal-body">
+                    <input type="hidden" id="edit_hall_id">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="admin_hall_name">Marriage Hall Name *</label>
+                            <input type="text" id="admin_hall_name" placeholder="e.g. Royal Crystal Palace" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="admin_hall_location">Location / City *</label>
+                            <input type="text" id="admin_hall_location" placeholder="e.g. MG Road, Bangalore" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="admin_hall_capacity">Guest Capacity (Seats) *</label>
+                            <input type="number" id="admin_hall_capacity" min="50" placeholder="1000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="admin_hall_price">Price Per Day (₹) *</label>
+                            <input type="number" id="admin_hall_price" min="0" step="500" placeholder="150000" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="admin_hall_status">Operational Status *</label>
+                        <select id="admin_hall_status" required>
+                            <option value="Available">Available</option>
+                            <option value="Maintenance">Under Maintenance</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="admin_hall_facilities">Included Facilities & Amenities (Comma-separated)</label>
+                        <textarea id="admin_hall_facilities" rows="3"
+                            placeholder="Centrally AC, Grand Mandap, Luxury Bridal Suite, Valet Parking, DJ Sound, Catering"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="admin_hall_image">Image Showcase URL (with images)</label>
+                        <input type="text" id="admin_hall_image"
+                            placeholder="/images/background.jpg">
+                        <div style="margin-top: 8px;">
+                            <img id="hall_image_preview"
+                                src="/images/background.jpg"
+                                alt="Preview"
+                                style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-check-avail" onclick="closeModal('hall-modal')">Cancel</button>
+                    <button type="submit" class="btn-book">Save Hall Details</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><b>Online Wedding Management System</b> • Full-Stack Project connected to <b>MySQL Workbench</b></p>
+        <p style="margin-top: 6px; font-size: 0.8rem; color: #64748b;">
+            Database: <code>wedding_db</code> | User: <code>root</code> (password: root) | Tables:
+            <code>customers</code>, <code>halls</code>, <code>bookings</code>, <code>payments</code>
+        </p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="/js/app.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+
+</html>

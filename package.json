@@ -1,0 +1,28 @@
+{
+  "name": "online-wedding-management-system",
+  "version": "1.0.0",
+  "description": "Online Wedding Management System with Hall Availability, Bookings, Payment Tracking, and Admin Control",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node scripts/seed.js",
+    "test": "node test-system.js"
+  },
+  "keywords": [
+    "wedding",
+    "marriage-hall",
+    "booking",
+    "mysql",
+    "express",
+    "workbench"
+  ],
+  "author": "Antigravity Pair Programmer",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mysql2": "^3.12.0"
+  }
+}
+
